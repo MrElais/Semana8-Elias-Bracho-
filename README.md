@@ -4,31 +4,36 @@ Proyecto: Carrito de compras
 Este proyecto es una aplicación web básica para gestionar un carrito de compras. Los usuarios pueden buscar productos, agregarlos al carrito y ver un resumen de los productos seleccionados. El sistema utiliza sesiones para mantener los datos del carrito.
 
 ## Características
-- **Gestión de sesiones seguras:** Utiliza cookies seguras y expira la sesión después de 30 minutos de inactividad.
-- **Carrito de compras dinámico:** Permite agregar productos al carrito y visualizarlos en tiempo real.
-- **Interfaz de usuario:** Incluye un campo de búsqueda de productos y una sección para mostrar los productos del carrito.
+- **Manejo de sesiones para garantizar la seguridad del usuario.
+- **Funcionalidad de agregar productos al carrito.
+- **Interfaz de usuario para buscar productos y visualizar el carrito
+- **No requiere una base de datos, lo que lo hace ligero y fácil de implementar.
 
 ## Estructura del proyecto
 ```
-root/
-|-- index.php       # Código principal en PHP para la gestión del carrito
-|-- estilos.css     # Estilos para la interfaz de usuario
-|-- productos.js    # Funcionalidad JavaScript para la búsqueda y notificaciones
-|-- README.md       # Descripción del proyecto
+/carrito-compras
+│
+├── src/
+│   ├── index.php         # Código principal en PHP
+│   ├── estilos.css       # Archivo de estilos CSS
+│   ├── productos.js      # Archivo de scripts JavaScript
+│
+├── README.md             # Documentación del proyecto
+└── .gitignore            # Configuración para Gitto
 ```
 
 ## Requisitos
-- Servidor web con soporte para PHP 7.4 o superior.
-- Navegador web moderno con soporte para JavaScript y CSS.
+- PHP 7.4 o superior instalado en tu sistema.
+- Un servidor web local como XAMPP o WAMP.
+- Visual Studio Code con la extensión PHP Server para ejecutar el proyecto.
 
 ## Instalación y uso
 1. Clona este repositorio:
    ```bash
    git clone https://github.com/MrElais/Semana8-Elias-Bracho-.git
    ```
-2. Coloca los archivos en un servidor web.
-3. Asegúrate de habilitar las sesiones en tu configuración de PHP.
-4. Accede al archivo `index.php` desde tu navegador.
+2. Abre el proyecto en Visual Studio Code.
+3. Presiona clip derecho en el proyecto y selecciona PHP Server: Serve Project.
 
 ## Funcionalidades principales
 ### PHP
