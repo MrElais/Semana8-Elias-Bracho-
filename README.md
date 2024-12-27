@@ -49,4 +49,3 @@ root/
 
 ## Contribuciones
 Las contribuciones son bienvenidas. Por favor, abre un issue para discutir cualquier cambio importante antes de enviar un pull request.
-
