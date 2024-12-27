@@ -52,5 +52,3 @@ Este proyecto es una aplicación web básica para gestionar un carrito de compra
 
 ## Contribuciones
 Las contribuciones son bienvenidas para ayudar en este proyecto.
-
-fdsfsdfsd
