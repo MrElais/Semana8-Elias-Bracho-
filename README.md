@@ -24,7 +24,6 @@ Este proyecto es una aplicación web básica para gestionar un carrito de compra
 
 ## Requisitos
 - PHP 7.4 o superior instalado en tu sistema.
-- Un servidor web local como XAMPP o WAMP.
 - Visual Studio Code con la extensión PHP Server para ejecutar el proyecto.
 
 ## Instalación y uso
