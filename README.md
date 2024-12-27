@@ -7,6 +7,7 @@ Este proyecto es una aplicación web básica para gestionar un carrito de compra
 - **Manejo de sesiones para garantizar la seguridad del usuario.
 - **Funcionalidad de agregar productos al carrito.
 - **Interfaz de usuario para buscar productos y visualizar el carrito
+- **Poner una funcionalidad para que el usuario escoja un método de pago 
 - **No requiere una base de datos, lo que lo hace ligero y fácil de implementar.
 
 ## Estructura del proyecto
