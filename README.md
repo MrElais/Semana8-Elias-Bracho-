@@ -50,4 +50,4 @@ Este proyecto es una aplicación web básica para gestionar un carrito de compra
 - Integrar metodo de pago para el carrito de compras.
 
 ## Contribuciones
-Las contribuciones son bienvenidas. Por favor, abre un issue para discutir cualquier cambio importante antes de enviar un pull request.
+Las contribuciones son bienvenidas para ayudar en este proyecto.
