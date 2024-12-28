@@ -5,104 +5,137 @@ const productos = [
     { id: 4, nombre: "Gorra", categoria: "Accesorios", precio: 15 },
     { id: 5, nombre: "Abrigo", categoria: "Ropa", precio: 100 },
     { id: 6, nombre: "Sandalias", categoria: "Calzado", precio: 25 }
-  ];
-  
-  let carrito = {};
-  
-  function searchProducts() {
+];
+
+let carrito = {};
+
+function searchProducts() {
     const query = document.getElementById("product-search").value.toLowerCase();
     const resultados = productos.filter(producto =>
-      producto.nombre.toLowerCase().includes(query) ||
-      producto.categoria.toLowerCase().includes(query)
+        producto.nombre.toLowerCase().includes(query) ||
+        producto.categoria.toLowerCase().includes(query)
     );
     mostrarResultados(resultados);
-  }
-  
-  function mostrarResultados(resultados) {
+}
+
+function mostrarResultados(resultados) {
     const contenedor = document.getElementById("results-container");
     contenedor.innerHTML = "";
-  
+
     if (resultados.length === 0) {
-      contenedor.innerHTML = "<p>No se encontraron productos.</p>";
-      return;
+        contenedor.innerHTML = "<p>No se encontraron productos.</p>";
+        return;
     }
-  
+
     resultados.forEach(producto => {
-      const productoDiv = document.createElement("div");
-      productoDiv.classList.add("producto");
-      productoDiv.innerHTML = `
-        <h3>${producto.nombre}</h3>
-        <p>Categoría: ${producto.categoria}</p>
-        <p>Precio: $${producto.precio}</p>
-        <button onclick="agregarAlCarrito(${producto.id})">Agregar al carrito</button>
-      `;
-      contenedor.appendChild(productoDiv);
+        const productoDiv = document.createElement("div");
+        productoDiv.classList.add("producto");
+        productoDiv.innerHTML = `
+            <h3>${producto.nombre}</h3>
+            <p>Categoría: ${producto.categoria}</p>
+            <p>Precio: $${producto.precio}</p>
+            <button onclick="agregarAlCarrito(${producto.id})">Agregar al carrito</button>
+        `;
+        contenedor.appendChild(productoDiv);
     });
-  }
-  
-  function agregarAlCarrito(productoId) {
+}
+
+function agregarAlCarrito(productoId) {
     if (!carrito[productoId]) {
-      const producto = productos.find(prod => prod.id === productoId);
-      carrito[productoId] = { ...producto, cantidad: 1 };
+        const producto = productos.find(prod => prod.id === productoId);
+        carrito[productoId] = { ...producto, cantidad: 1 };
     } else {
-      carrito[productoId].cantidad++;
+        carrito[productoId].cantidad++;
     }
-  
+
     mostrarNotificacion(`"${carrito[productoId].nombre}" fue agregado al carrito.`);
     actualizarCarrito();
-  }
-  
-  function actualizarCarrito() {
+}
+
+function actualizarCarrito() {
     const carritoContenedor = document.getElementById("carrito-container");
     carritoContenedor.innerHTML = "";
-  
+
     if (Object.keys(carrito).length === 0) {
-      carritoContenedor.innerHTML = "<p>El carrito está vacío.</p>";
-      return;
+        carritoContenedor.innerHTML = "<p>El carrito está vacío.</p>";
+        return;
     }
-  
+
     let total = 0;
-  
+
     Object.values(carrito).forEach(producto => {
-      total += producto.precio * producto.cantidad;
-  
-      const productoDiv = document.createElement("div");
-      productoDiv.classList.add("producto");
-      productoDiv.innerHTML = `
-        <h3>${producto.nombre}</h3>
-        <p>Precio: $${producto.precio}</p>
-        <p>Cantidad: ${producto.cantidad}</p>
-        <button onclick="eliminarDelCarrito(${producto.id})">Eliminar</button>
-      `;
-      carritoContenedor.appendChild(productoDiv);
+        total += producto.precio * producto.cantidad;
+
+        const productoDiv = document.createElement("div");
+        productoDiv.classList.add("producto");
+        productoDiv.innerHTML = `
+            <h3>${producto.nombre}</h3>
+            <p>Precio: $${producto.precio}</p>
+            <p>Cantidad: ${producto.cantidad}</p>
+            <button onclick="eliminarDelCarrito(${producto.id})">Eliminar</button>
+        `;
+        carritoContenedor.appendChild(productoDiv);
     });
-  
+
     const totalDiv = document.createElement("div");
     totalDiv.classList.add("total");
     totalDiv.innerHTML = `<h3>Total: $${total}</h3>`;
     carritoContenedor.appendChild(totalDiv);
-  }
-  
-  function eliminarDelCarrito(productoId) {
+}
+
+function eliminarDelCarrito(productoId) {
     if (carrito[productoId]) {
-      carrito[productoId].cantidad--;
-      if (carrito[productoId].cantidad === 0) {
-        delete carrito[productoId];
-      }
+        carrito[productoId].cantidad--;
+        if (carrito[productoId].cantidad === 0) {
+            delete carrito[productoId];
+        }
     }
-  
+
     mostrarNotificacion(`Producto eliminado del carrito.`);
     actualizarCarrito();
-  }
-  
-  function mostrarNotificacion(mensaje) {
+}
+
+function mostrarNotificacion(mensaje) {
     const notificacion = document.createElement("div");
     notificacion.classList.add("notificacion");
     notificacion.textContent = mensaje;
-  
+
     document.body.appendChild(notificacion);
-  
+
     setTimeout(() => {
-      notificacion.remove();
+        notificacion.remove();
     }, 3000);
-  }
+}
+
+function procesarPago() {
+    const metodoPago = document.getElementById("metodo-pago").value;
+
+    if (!metodoPago) {
+        mostrarNotificacion("Por favor, seleccione un método de pago.");
+        return;
+    }
+
+    const total = Object.values(carrito).reduce((sum, producto) => sum + producto.precio * producto.cantidad, 0);
+
+    if (total === 0) {
+        mostrarNotificacion("El carrito está vacío. No se puede realizar el pago.");
+        return;
+    }
+
+    fetch('Elias_Bracho_Semana5_combined.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ metodo_pago: metodoPago, total })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            mostrarNotificacion("Pago realizado con éxito.");
+            carrito = {};
+            actualizarCarrito();
+        } else {
+            mostrarNotificacion("Error en el procesamiento del pago.");
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
