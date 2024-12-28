@@ -106,3 +106,36 @@ function mostrarNotificacion(mensaje) {
         notificacion.remove();
     }, 3000);
 }
+
+function procesarPago() {
+  const metodoPago = document.getElementById("metodo-pago").value;
+
+  if (!metodoPago) {
+      mostrarNotificacion("Por favor, seleccione un método de pago.");
+      return;
+  }
+
+  const total = Object.values(carrito).reduce((sum, producto) => sum + producto.precio * producto.cantidad, 0);
+
+  if (total === 0) {
+      mostrarNotificacion("El carrito está vacío. No se puede realizar el pago.");
+      return;
+  }
+
+  fetch('Elias_Bracho_Semana5_combined.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ metodo_pago: metodoPago, total })
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          mostrarNotificacion("Pago realizado con éxito.");
+          carrito = {};
+          actualizarCarrito();
+      } else {
+          mostrarNotificacion("Error en el procesamiento del pago.");
+      }
+  })
+  .catch(error => console.error("Error:", error));
+}
