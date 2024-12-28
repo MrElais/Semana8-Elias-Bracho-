@@ -87,20 +87,6 @@ function displayCart()
     <p>Los productos que agregues aparecerán aquí.</p>
 </section>
 
-<section id="pago-container">
-    <h2>Realizar Pago</h2>
-    <form id="pago-form">
-        <label for="metodo-pago">Seleccione el método de pago:</label>
-        <select id="metodo-pago" name="metodo_pago" required>
-            <option value="" disabled selected>Seleccione...</option>
-            <option value="tarjeta">Tarjeta de crédito</option>
-            <option value="paypal">PayPal</option>
-            <option value="transferencia">Transferencia bancaria</option>
-        </select>
-        <button type="button" onclick="procesarPago()">Pagar</button>
-    </form>
-</section>
-
 <div class="notificacion"></div>
 
 <script src="productos.js"></script>
